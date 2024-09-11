@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fphw Assignment
+% LaTeX Template
+% Version 1.0 (27/04/2019)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Authors:
+% Class by Felipe Portales-Oliva (f.portales.oliva@gmail.com) with template 
+% content and modifications by Vel (vel@LaTeXTemplates.com)
+%
+% Template (this file) License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+
+\documentclass[
+12pt, % Default font size, values between 10pt-12pt are allowed
+%letterpaper, % Uncomment for US letter paper size
+%spanish, % Uncomment for Spanish
+]{fphw}
+% Template-specific packages
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{mathpazo} % Use the Palatino font
+
+\usepackage{graphicx} % Required for including images
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+\usepackage{listings} % Required for insertion of code
+
+\usepackage{enumerate} % To modify the enumerate environment
+
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Homework \#6} % Assignment title
+
+\author{Chengqi Liu (1954148), Maitraiyi Dandekar (1990136),\\ Zakariae Jabbour (2039702)} % Student name
+
+\date{October 17th, 2023} % Due date
+
+\institute{Eindhoven University of Technology} % Institute or school name
+
+\class{Cryptology (2MMC10)} % Course or class name
+
+\professor{Tanja Lange} % Professor or teacher in charge of the assignment
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Output the assignment title, created automatically using the information in the custom commands above
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT CONTENT
+%----------------------------------------------------------------------------------------
+\textbf{1.\\}
+The conditions are:
+\begin{align*}
+	n=&pq=7684607040813031964568123727442263397500506224420545927139570285341\\
+	p=&a+r\\
+	a=&3855587076697238083701498334674944\\
+	r<&2^{36}
+\end{align*}
+Let $F(r)=(r+a)$, then $r$ is a solution of $F(r)\equiv0\mod p$. Let $X=2^{36}$. $r<X$. Construct the lattice:
+\[B=
+\begin{bmatrix}
+	n & 0 & 0 & 0\\
+	a & X & 0 & 0\\
+	0 & aX & aX^2 & 0\\
+	0 & 0 & aX^2 & aX^3\\
+\end{bmatrix}
+\]
+You can find our codes in "LLL.py".\\
+Run our codes and get the outputs.\\
+(The matrix after LLL reduction is too large so we omit it here. You can run our program to find it.)\\
+The function of $r$ is:
+\begin{align*}
+	F(r)=&-96555903568429351669384558377410+294955517584034757255986690392064r\\
+	&+60298211352416430157901672218624r^2+0r^3
+\end{align*}
+Solve $F(r)$ by Newton's method and check whether $n\equiv 0 \mod a+r$. The outputs are:\\
+$r$ is: 21163420865\\
+The answer is correct.\\
+Then, find $p=a+r$ and $q=n/(a+r)$:\\ 
+$p$ is: 3855587076697238083701519498095809\\
+$q$ is: 1993109450765095312123565166297088\\\\
+\textbf{2.\\}
+(In case of symbol confusion, we use $N=pq$ in this part.)\\
+The Howgrawe-Graham Theorem is: There is some $x_0$ such that $|x_0|\leq X$ and$F(x_0)\equiv0 \mod M$. $b_F=(a_0,a_1X,...,a_dX^d)$. If $||b_F||<\frac{M}{\sqrt{d+1}}$, then $F(x_0)=0$.\\
+And, by the property of LLL lattice basis reduction, we have
+\[||b_F||\leq2^{\frac{n-1}{4}}\det(B)^\frac{1}{n}\]
+So, we can solve $r$ if
+\begin{align*}
+	&2^{\frac{n-1}{4}}\det(B)^\frac{1}{n}<\frac{M}{\sqrt{d+1}}
+\end{align*}
+We can construct the Lattice with $N^h,N^{h-1}F(x),...,F^h(x),xF^h(x),x^2F^h(x),...,x^{k-h}F^h(x)$.
+where $n=k$, $d=k-1$, $\det(B)=N^{\frac{(h+1)h}{2}}X^\frac{(k+1)k}{2}$, $M=p^h$.
+\begin{align*}
+	&2^{\frac{n-1}{4}}\det(B)^\frac{1}{n}<\frac{M}{\sqrt{d+1}}\\
+	\Leftrightarrow&2^{\frac{k-1}{4}}(N^{\frac{(h+1)h}{2}}X^\frac{(k+1)k}{2})^\frac{1}{k}<\frac{p^h}{\sqrt{k}}\\
+	\Leftrightarrow&X<(\frac{p^h}{\sqrt{k}}2^{-\frac{k-1}{4}}N^{-\frac{(h+1)h}{2k}})^\frac{2}{k+1}
+\end{align*}
+We can just let $h=4$, $k=8=2^3$, then it becomes
+\[X<(p^42^{-\frac{13}{4}}N^{-\frac{5}{4}})^\frac{2}{9}\]
+In the previous exercise, we have
+\begin{align*}
+	X=2^{36}=&68719476736\\
+	(p^42^{-\frac{13}{4}}N^{-\frac{5}{4}})^\frac{2}{9}\approx&114170204032
+\end{align*}
+So, $X<(p^42^{-\frac{13}{4}}N^{-\frac{5}{4}})^\frac{2}{9}$ is correct, which means $r$ is small enough. We can solve $r$ and factor $N$ in polynomial time. \\
+(Note that we didn't use the very complicated Lattice with $h=4$ $k=8$, because $||b_F||\leq2^{\frac{n-1}{4}}\det(B)^\frac{1}{n}$ only gives an extreme worst-case, and the  Lattice with $h=4$ $k=8$ is very hard to compute. Usually a simpler Lattice can also give a correct result.)
+\end{document}

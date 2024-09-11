@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fphw Assignment
+% LaTeX Template
+% Version 1.0 (27/04/2019)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Authors:
+% Class by Felipe Portales-Oliva (f.portales.oliva@gmail.com) with template 
+% content and modifications by Vel (vel@LaTeXTemplates.com)
+%
+% Template (this file) License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+
+\documentclass[
+12pt, % Default font size, values between 10pt-12pt are allowed
+%letterpaper, % Uncomment for US letter paper size
+%spanish, % Uncomment for Spanish
+]{fphw}
+% Template-specific packages
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{mathpazo} % Use the Palatino font
+
+\usepackage{graphicx} % Required for including images
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+\usepackage{listings} % Required for insertion of code
+
+\usepackage{enumerate} % To modify the enumerate environment
+
+\usepackage{float} %设置图片浮动位置的宏包
+\usepackage{subfigure} %插入多图时用子图显示的宏包
+\usepackage{ctex}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Python,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Homework \#3} % Assignment title
+
+\author{Chengqi Liu (1954148), Maitraiyi Dandekar (1990136),\\ Zakariae Jabbour (2039702)} % Student name
+
+\date{September 26th, 2023} % Due date
+
+\institute{Eindhoven University of Technology} % Institute or school name
+
+\class{Cryptology (2MMC10)} % Course or class name
+
+\professor{Tanja Lange} % Professor or teacher in charge of the assignment
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Output the assignment title, created automatically using the information in the custom commands above
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT CONTENT
+%----------------------------------------------------------------------------------------
+\textbf{1.\\}
+The curve $E$ is an Edwards Curve with $d=-5$. The following calculations are on $\mathbb{F}_{13}$:\\
+Using the formula $(x_1,y_1)+(x_2,y_2)=(\frac{x_1y_2+x_2y_1}{1-5x_1x_2y_1y_2} \mod 13,\frac{y_1y_2-x_1x_2}{1+5x_1x_2y_1y_2}\mod 13)$，
+\begin{align*}
+	R=&2P+Q\\
+	=&2(6,3)+(3,7)
+\end{align*}
+where
+\begin{align*}
+	2(6,3)=&(\frac{2*6*3}{1-5*6^2*3^2}\mod 13,\frac{3^2-6^2}{1+5*6^2*3^2} \mod 13)\\
+	=&(\frac{36}{-1619}\mod 13,\frac{-27}{1621} \mod 13)\\
+	=&(\frac{36\mod 13}{-1619\mod 13}\mod 13,\frac{-27\mod 13}{1621\mod 13} \mod 13)\\
+	=&(\frac{10}{6}\mod 13,\frac{12}{9} \mod 13)
+\end{align*}
+Because $(2,13)=1$, $\frac{10}{6}=\frac{10/2}{6/2}=\frac{5}{3}\mod 13$.\\
+Because $(3,13)=1$, $\frac{12}{9}=\frac{12/3}{9/3}=\frac{4}{3}\mod 13$. 
+\begin{align*}
+	2(6,3)=&(\frac{5}{3}\mod 13, \frac{4}{3}\mod 13)\\
+	=&(5*3^{-1}\mod 13, 4*3^{-1} \mod 13)
+\end{align*}
+Because $3*9\mod 13=1$, $3^{-1}\mod13=9$.
+\begin{align*}
+	2(6,3)=&(5*9 \mod13,4*9\mod13)\\
+	=&(6,10)
+\end{align*}
+\end{document}
