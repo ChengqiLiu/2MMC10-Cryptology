@@ -8,7 +8,6 @@ https://www.hyperelliptic.org/tanja/teaching/crypto23/
 Contents:
 
 - The general structure of block ciphers, Feistel ciphers like DES, AES, the most suitable modes-of-use, e.g. CBC or OFB.
-
 - Hash functions, Message Authentication Codes.
 - The principle of public key cryptography.
 - Basics of finite fields and their arithmetic
