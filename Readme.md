@@ -1,4 +1,5 @@
-It belongs to the course 2MMC10 - Cryptology. This course is offered at TU/e and aimed at students of mathematics and computer science.
+# 2MMC10-Cryptology
+It belongs to the course 2MMC10 - Cryptology in the winter of 2023. This course is offered at TU/e and aimed at students of mathematics and computer science.
 
 Website:
 
